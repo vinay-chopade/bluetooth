@@ -11,7 +11,7 @@ const Feild = props => {
         color: 'white',
         paddingHorizontal: 15,
         width: '80%',
-        height: 50,
+        height: 45,
         backgroundColor: '#3B3D3C',
         marginBottom: 10,
         marginVertical: 10,

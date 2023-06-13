@@ -32,7 +32,6 @@ const Styles = StyleSheet.create({
     color: 'blue',
     fontSize: 60,
     fontStyle: 'bold',
-    // marginBottom: 30,
   },
   head2: {
     color: 'blue',

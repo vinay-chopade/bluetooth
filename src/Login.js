@@ -14,7 +14,7 @@ const Login = props => {
             color: 'black',
             fontSize: 64,
             fontStyle: 'bold',
-            marginVertical: 40,
+            marginVertical: 30,
           }}>
           Login
         </Text>
@@ -22,11 +22,10 @@ const Login = props => {
       <View
         style={{
           backgroundColor: 'white',
-          height: 670,
+          height: 680,
           width: 400,
           borderTopLeftRadius: 140,
           paddingTop: 100,
-          marginTop: 10,
           alignItems: 'center',
         }}>
         <Text style={{color: lightGreen, fontSize: 40, fontWeight: 'bold'}}>
