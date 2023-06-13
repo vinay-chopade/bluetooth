@@ -10,7 +10,6 @@ const Feild = props => {
         borderRadius: 100,
         color: 'white',
         paddingHorizontal: 15,
-        placeholderTextColor: lightGreen,
         width: '80%',
         height: 50,
         backgroundColor: '#3B3D3C',

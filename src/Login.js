@@ -5,7 +5,7 @@ import {lightGreen} from './Constants';
 import Feild from './Feild';
 import Btn from './Btn';
 
-const Login = () => {
+const Login = props => {
   return (
     <Background>
       <View style={{alignItems: 'center', width: 400}}>
@@ -66,9 +66,11 @@ const Login = () => {
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Text style={{color:'#808080'}}>Don't have an account? </Text>
-          <TouchableOpacity>
-            <Text style={{color: lightGreen, fontWeight: 'bold', fontSize: 15}}>
+          <Text style={{color: '#808080', fontSize: 16, fontWeight: 'bold'}}>
+            Don't have an account?{' '}
+          </Text>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Signup')}>
+            <Text style={{color: lightGreen, fontWeight: 'bold', fontSize: 16}}>
               SignUp
             </Text>
           </TouchableOpacity>
