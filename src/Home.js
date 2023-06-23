@@ -31,7 +31,6 @@ const Styles = StyleSheet.create({
   head1: {
     color: 'blue',
     fontSize: 60,
-    fontStyle: 'bold',
   },
   head2: {
     color: 'blue',

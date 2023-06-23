@@ -13,7 +13,6 @@ const Login = props => {
           style={{
             color: 'black',
             fontSize: 64,
-            fontStyle: 'bold',
             marginVertical: 30,
           }}>
           Login
@@ -68,7 +67,7 @@ const Login = props => {
           <Text style={{color: '#808080', fontSize: 16, fontWeight: 'bold'}}>
             Don't have an account?{' '}
           </Text>
-          <TouchableOpacity onPress={() => props.navigation.navigate('Signup')}>
+          <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
             <Text style={{color: lightGreen, fontWeight: 'bold', fontSize: 16}}>
               SignUp
             </Text>
