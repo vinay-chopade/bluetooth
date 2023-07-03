@@ -1,24 +1,76 @@
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, TextInput} from 'react-native';
 import React, { useState } from 'react';
 import Background from './Background';
 import {lightGreen} from './Constants';
 import Feild from './Feild';
 import Btn from './Btn';
+import { errormessage } from './css/formcss';
 
 const SignUp = props => {
 
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  //const [password, setPassword] = useState('');
+  //const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleRegistration = () => {
-    if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match.');
-    } else if (password.length < 6) {
-      Alert.alert('Error', 'Password should be at least 6 characters long.');
-    } else {
-      Alert.alert('Account Created'), props.navigation.navigate('Login');
-    }
+    // if (password !== confirmPassword) {
+    //   Alert.alert('Error', 'Passwords do not match.');
+    // } else if (password.length < 6) {
+    //   Alert.alert('Error', 'Password should be at least 6 characters long.');
+    // } else {
+    //   Alert.alert('Account Created'), props.navigation.navigate('Login');
+    // }
+
+   // console.log(fdata);
+
+   if(fdata.fname =='' || 
+      fdata.lname =='' ||
+      fdata.cnum == '' ||
+      fdata.email == '' ||
+      fdata.pass == '' ||
+      fdata.cpass == '')
+   {
+    setErrormsg('All fields are required');
+   return;
+  }
+  else   if (fdata.pass != fdata.cpass) {
+    setErrormsg('Password and Confirm Password must be same');
+    return;
+}
+else {
+  fetch('http://10.0.2.2:3000/signup', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(fdata)
+  })
+      .then(res => res.json()).then(
+          data => {
+              // console.log(data);
+              if (data.error) {
+                  setErrormsg(data.error)
+              }
+              else {
+                  alert('account created sucessfully');
+                  navigation.navigate('login');
+              }
+          }
+      )
+}
+
+
   };
+
+  const [fdata, setFdata] = useState({
+    fname: '',
+    lname: '',
+    cnum : '',
+    email: '',
+    pass : '',
+    cpass : ''
+  })
+
+  const [errormsg, setErrormsg] = useState(null);
 
   return (
     <Background>
@@ -51,14 +103,42 @@ const SignUp = props => {
           paddingTop: 40,
           alignItems: 'center',
         }}>
-        <Feild placeholder="First Name" />
-        <Feild placeholder="Last Name" />
-        <Feild placeholder="Contact Number" keyboardType={'number'} />
-        <Feild placeholder="Email/Username" keyboardType={'email-address'} />
-        <Feild placeholder="Password" value={password}
-        onChangeText={setPassword} secureTextEntry={true} />
-        <Feild placeholder="Connfirm Password" value={confirmPassword}
-        onChangeText={setConfirmPassword} secureTextEntry={true} />
+        <View>
+          <TextInput placeholder="First name"
+          onPressIn={() => setErrormsg(null)}
+          onChangeText={(text) => setFdata({ ...fdata, fname: text })}
+          />
+         </View>
+        <View>
+          <TextInput placeholder="Last name"
+          onPressIn={() => setErrormsg(null)}
+          onChangeText={(text) => setFdata({ ...fdata, lname: text })}
+          />
+        </View>
+        <View>
+          <TextInput placeholder="Contact Number" keyboardType={'number'}
+          onPressIn={() => setErrormsg(null)}
+          onChangeText={(text) => setFdata({ ...fdata, cnum: text })}
+          />        
+        </View>
+        <View>
+          <TextInput placeholder="Email address" keyboardType={'email-address'}
+          onPressIn={() => setErrormsg(null)}
+          onChangeText={(text) => setFdata({ ...fdata, email: text})}
+          />
+        </View>
+        <View>
+          <TextInput placeholder="Password"
+          onPressIn={() => setErrormsg(null)}
+          onChangeText={(text) => setFdata({ ...fdata, pass: text })} 
+          secureTextEntry={true} />
+        </View>
+        <View>
+          <TextInput placeholder="Confirm Password"
+          onPressIn={() => setErrormsg(null)}
+          onChangeText={(text) => setFdata({ ...fdata, cpass: text })} 
+          secureTextEntry={true} />
+        </View>
         <View
           style={{
             display: 'flex',
@@ -98,6 +178,7 @@ const SignUp = props => {
           //   alert('Account Created'), props.navigation.navigate('Login');
           // }}
         />
+
         <View
           style={{
             display: 'flex',
@@ -112,7 +193,11 @@ const SignUp = props => {
               Login
             </Text>
           </TouchableOpacity>
+          
         </View>
+        {
+         errormsg ? <Text style={errormessage}>{errormsg}</Text> : null
+      }
       </View>
     </Background>
   );
