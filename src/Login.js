@@ -56,7 +56,7 @@ const Login = props => {
           textColor="white"
           bgColor={lightGreen}
           btnLabel="Login"
-          Press={() => alert('Logged In')}
+          Press={() => props.navigation.navigate('First')}
         />
         <View
           style={{
