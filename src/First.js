@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Btn from './Btn';
 import {
   Text,
   View,
@@ -204,6 +205,14 @@ const App = () => {
               Lets connect your device
             </Text>
           </View>
+          <View>
+          <Btn
+          textColor="white"
+          bgColor={lightGreen}
+          btnLabel="Login"
+          Press={() => props.navigation.navigate('First')}
+        />
+            </View>
           <TouchableOpacity
             activeOpacity={0.5}
             style={styles.buttonStyle}
@@ -211,6 +220,13 @@ const App = () => {
             <Text style={styles.buttonTextStyle}>
               {isScanning ? 'Scanning...' : 'Scan Bluetooth Devices'}
             </Text>
+            {/* <Btn
+              textColor="black"
+              bgColor='grey'
+              btnLabel="Back"
+              Press={() => props.navigation.navigate('Login')}
+              
+            /> */}
           </TouchableOpacity>
         </View>
         {/* list of scanned bluetooth devices */}
@@ -243,7 +259,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   buttonTextStyle: {
-    color: '#FFFFFF',
+    // color: '#FFFFFF',
+    color: 'white',
     paddingVertical: 10,
     fontSize: 16,
   },

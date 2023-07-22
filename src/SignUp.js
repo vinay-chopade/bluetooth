@@ -1,13 +1,12 @@
 import {View, Text, TouchableOpacity, Alert, TextInput} from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Background from './Background';
 import {lightGreen} from './Constants';
 import Feild from './Feild';
 import Btn from './Btn';
-import { errormessage } from './css/formcss';
+import {errormessage} from './css/formcss';
 
 const SignUp = props => {
-
   //const [password, setPassword] = useState('');
   //const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -20,55 +19,54 @@ const SignUp = props => {
     //   Alert.alert('Account Created'), props.navigation.navigate('Login');
     // }
 
-   // console.log(fdata);
+    // console.log(fdata);
 
-   if(fdata.fname =='' || 
-      fdata.lname =='' ||
+    if (
+      fdata.fname == '' ||
+      fdata.lname == '' ||
       fdata.cnum == '' ||
       fdata.email == '' ||
       fdata.pass == '' ||
-      fdata.cpass == '')
-   {
-    setErrormsg('All fields are required');
-   return;
-  }
-  else   if (fdata.pass != fdata.cpass) {
-    setErrormsg('Password and Confirm Password must be same');
-    return;
-}
-else {
-  fetch('http://10.0.2.2.:3000/signup', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(fdata)
-  })
-      .then(res => res.json()).then(
-          data => {
-              // console.log(data);
-              if (data.error) {
-                  setErrormsg(data.error)
-              }
-              else {
-                  alert('account created sucessfully');
-                  navigation.navigate('login');
-              }
+      fdata.cpass == ''
+    ) {
+      setErrormsg('All fields are required');
+      return;
+    } else if (fdata.pass != fdata.cpass) {
+      setErrormsg('Password and Confirm Password must be same');
+      return;
+    } else {
+      fetch('http://10.0.2.2.:3000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(fdata),
+      })
+        .then(res => res.json())
+        .then(data => {
+          // console.log(data);
+          if (data.error) {
+            setErrormsg(data.error);
+          } else {
+            Alert('account created sucessfully');
+            navigation.navigate('login');
           }
-      )
-}
-
-
+        });
+    }
+    redirect();
+  };
+  const redirect = () => {
+    onPress = {Login};
   };
 
   const [fdata, setFdata] = useState({
     fname: '',
     lname: '',
-    cnum : '',
+    cnum: '',
     email: '',
-    pass : '',
-    cpass : ''
-  })
+    pass: '',
+    cpass: '',
+  });
 
   const [errormsg, setErrormsg] = useState(null);
 
@@ -79,7 +77,6 @@ else {
           style={{
             color: 'black',
             fontSize: 64,
-            fontStyle: 'bold',
             marginTop: 30,
           }}>
           Register
@@ -104,40 +101,99 @@ else {
           alignItems: 'center',
         }}>
         <View>
-          <TextInput placeholder="First name"
-          onPressIn={() => setErrormsg(null)}
-          onChangeText={(text) => setFdata({ ...fdata, fname: text })}
-          />
-         </View>
-        <View>
-          <TextInput placeholder="Last name"
-          onPressIn={() => setErrormsg(null)}
-          onChangeText={(text) => setFdata({ ...fdata, lname: text })}
-          />
-        </View>
-        <View>
-          <TextInput placeholder="Contact Number" keyboardType={'number'}
-          onPressIn={() => setErrormsg(null)}
-          onChangeText={(text) => setFdata({ ...fdata, cnum: text })}
-          />        
-        </View>
-        <View>
-          <TextInput placeholder="Email address" keyboardType={'email-address'}
-          onPressIn={() => setErrormsg(null)}
-          onChangeText={(text) => setFdata({ ...fdata, email: text})}
+          <TextInput
+            placeholder="First name"
+            placeholderTextColor="white"
+            onPressIn={() => setErrormsg(null)}
+            onChangeText={text => setFdata({...fdata, fname: text})}
+            style={{
+              backgroundColor: 'grey',
+              borderRadius: 50,
+              width: 300,
+              textAlign: 'center',
+              marginBottom: 5,
+            }}
           />
         </View>
         <View>
-          <TextInput placeholder="Password"
-          onPressIn={() => setErrormsg(null)}
-          onChangeText={(text) => setFdata({ ...fdata, pass: text })} 
-          secureTextEntry={true} />
+          <TextInput
+            placeholder="Last name"
+            placeholderTextColor="white"
+            onPressIn={() => setErrormsg(null)}
+            onChangeText={text => setFdata({...fdata, lname: text})}
+            style={{
+              backgroundColor: 'grey',
+              borderRadius: 50,
+              width: 300,
+              textAlign: 'center',
+              marginBottom: 5,
+            }}
+          />
         </View>
         <View>
-          <TextInput placeholder="Confirm Password"
-          onPressIn={() => setErrormsg(null)}
-          onChangeText={(text) => setFdata({ ...fdata, cpass: text })} 
-          secureTextEntry={true} />
+          <TextInput
+            placeholder="Contact Number"
+            placeholderTextColor="white"
+            keyboardType={'phone-pad'}
+            maxLength={10}
+            onPressIn={() => setErrormsg(null)}
+            onChangeText={text => setFdata({...fdata, cnum: text})}
+            style={{
+              backgroundColor: 'grey',
+              borderRadius: 50,
+              width: 300,
+              textAlign: 'center',
+              marginBottom: 5,
+            }}
+          />
+        </View>
+        <View>
+          <TextInput
+            placeholder="Email address"
+            placeholderTextColor="white"
+            keyboardType={'email-address'}
+            onPressIn={() => setErrormsg(null)}
+            onChangeText={text => setFdata({...fdata, email: text})}
+            style={{
+              backgroundColor: 'grey',
+              borderRadius: 50,
+              width: 300,
+              textAlign: 'center',
+              marginBottom: 5,
+            }}
+          />
+        </View>
+        <View>
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor="white"
+            onPressIn={() => setErrormsg(null)}
+            onChangeText={text => setFdata({...fdata, pass: text})}
+            secureTextEntry={true}
+            style={{
+              backgroundColor: 'grey',
+              borderRadius: 50,
+              width: 300,
+              textAlign: 'center',
+              marginBottom: 5,
+            }}
+          />
+        </View>
+        <View>
+          <TextInput
+            placeholder="Confirm Password"
+            placeholderTextColor="white"
+            onPressIn={() => setErrormsg(null)}
+            onChangeText={text => setFdata({...fdata, cpass: text})}
+            style={{
+              backgroundColor: 'grey',
+              borderRadius: 50,
+              width: 300,
+              textAlign: 'center',
+              marginBottom: 5,
+            }}
+            secureTextEntry={true}
+          />
         </View>
         <View
           style={{
@@ -169,13 +225,16 @@ else {
             Privacy Policy
           </Text>
         </View>
+
         <Btn
           textColor="white"
           bgColor={lightGreen}
           btnLabel="SignUp"
-          Press={handleRegistration}
+          onPress={handleRegistration}
+          // onPress={() => Alert.alert('Simple Button pressed')}
+          // onPressIn={handleRegistration}
           // Press={() => {
-          //   alert('Account Created'), props.navigation.navigate('Login');
+          // alert('Account Created'), props.navigation.navigate('Login');
           // }}
         />
 
@@ -193,11 +252,8 @@ else {
               Login
             </Text>
           </TouchableOpacity>
-          
         </View>
-        {
-         errormsg ? <Text style={errormessage}>{errormsg}</Text> : null
-      }
+        {errormsg ? <Text style={errormessage}>{errormsg}</Text> : null}
       </View>
     </Background>
   );
